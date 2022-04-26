@@ -23,9 +23,12 @@ func main() {
 	kingpin.Version(version)
 	kingpin.Parse()
 
+	Collector(logger)
+
 	http.Handle("/metrics", promhttp.Handler())
 
 	servingPort := fmt.Sprintf(":%d", *port)
 	logger.Print("Server listening on ", servingPort)
 	logger.Fatal(http.ListenAndServe(servingPort, nil))
+
 }
